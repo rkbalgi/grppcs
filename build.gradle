@@ -5,7 +5,7 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.21"
-        //classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
+        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
     }
 }
 
@@ -15,9 +15,10 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "1.3.21"
     id "com.google.protobuf" version "0.8.10"
     id "application"
+    id "idea"
 }
 
-mainClassName="com.github.rkbalgi.grpccs.GrpccsKt"
+mainClassName = "com.github.rkbalgi.grpccs.GrpccsKt"
 group = "com.github.rkbalgi.apps"
 version = "1.0-SNAPSHOT"
 
@@ -39,6 +40,7 @@ dependencies {
 
     //protobuf(files("src/main/proto"))
 }
+
 
 /*sourceSets {
     main {
@@ -62,8 +64,16 @@ protobuf {
     }
 }
 
-task runApp(type: JavaExec){
-    println(sourceSets.main.runtimeClasspath.toList())
-    main="com.github.rkbalgi.grpccs.GrpccsKt"
-    classpath=sourceSets.main.runtimeClasspath
+idea {
+    module {
+        sourceDirs += file("${protobuf.generatedFilesBaseDir}/main/grpc")
+
+    }
 }
+
+task runApp(type: JavaExec) {
+    println(sourceSets.main.runtimeClasspath.toList())
+    main = "com.github.rkbalgi.grpccs.GrpccsKt"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
