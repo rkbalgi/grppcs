@@ -16,6 +16,12 @@ plugins {
     id "com.google.protobuf" version "0.8.10"
     id "application"
     id "idea"
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+}
+
+javafx{
+    version="12.0.1"
+    modules=['javafx.controls']
 }
 
 mainClassName = "com.github.rkbalgi.grpccs.GrpccsKt"

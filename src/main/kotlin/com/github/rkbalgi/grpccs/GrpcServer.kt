@@ -3,9 +3,11 @@ package com.github.rkbalgi.grpccs
 import com.github.rkbalgi.grpccs.proto.S1Grpc
 import com.github.rkbalgi.grpccs.proto.Test
 import com.google.protobuf.ByteString
-import io.grpc.Grpc
+import io.grpc.Server
 import io.grpc.ServerBuilder
 import io.grpc.stub.StreamObserver
+
+var server: Server? = null
 
 class S1Service : S1Grpc.S1ImplBase() {
 
@@ -23,7 +25,7 @@ class S1Service : S1Grpc.S1ImplBase() {
 }
 
 fun startServer() {
-    val server = ServerBuilder.forPort(9898).addService(S1Service()).build();
-    server.start()
-    Thread.sleep(Long.MAX_VALUE)
+    server = ServerBuilder.forPort(9898).addService(S1Service()).build();
+    server!!.start()
+
 }
